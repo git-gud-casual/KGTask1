@@ -2,7 +2,7 @@ package ru.vsu.sps.object;
 
 import java.awt.*;
 
-public class Background implements PaintedObject {
+public class Background implements PaintedObject, ScalableObject {
     public static final Color TOP_COLOR = new Color(12, 157, 152);
     public static final Color MID_COLOR = new Color(211, 211, 211);
     public static final Color BOTTOM_COLOR = new Color(198, 198, 198);
@@ -13,19 +13,6 @@ public class Background implements PaintedObject {
 
     private int width;
     private int height;
-
-    public Background(int width, int height) {
-        this.width = width;
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     private void paintBackground(Graphics2D gr) {
         gr.setPaint(TOP_COLOR);
@@ -52,5 +39,11 @@ public class Background implements PaintedObject {
     public void paint(Graphics2D gr) {
         paintBackground(gr);
         paintTubes(gr);
+    }
+
+    @Override
+    public void changeWindowSize(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 }
