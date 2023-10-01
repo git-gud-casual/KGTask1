@@ -19,7 +19,7 @@ public class DrawPanel extends JPanel {
     public DrawPanel() {
         paintedObjects = new ArrayList<>();
         paintedObjects.add(new Background());
-        paintedObjects.add(new AssemblyLine());
+        paintedObjects.add(new AssemblyLine(-0.1, 0.5));
 
         double step = 1. / (LAMP_COUNT + 1);
         for (int i = 0; i < LAMP_COUNT; i++) {
