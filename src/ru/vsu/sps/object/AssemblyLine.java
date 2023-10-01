@@ -9,14 +9,8 @@ public class AssemblyLine implements AnimatedObject, PaintedObject, ScalableObje
     private int width, height;
 
     @Override
-    public void next() {
-
-    }
-
-    @Override
     public void paint(Graphics2D gr) {
         gr.setColor(EXTERNAL_LAYOUT_COLOR);
-        gr.setStroke(new BasicStroke(25));
         RoundRectangle2D roundRectangle2D = new RoundRectangle2D.Double(0, 0, 400, 100, 100, 150);
         gr.draw(roundRectangle2D);
     }
@@ -25,5 +19,10 @@ public class AssemblyLine implements AnimatedObject, PaintedObject, ScalableObje
     public void changeWindowSize(int width, int height) {
         this.width = width;
         this.height = height;
+    }
+
+    @Override
+    public void next(int fps) {
+
     }
 }
