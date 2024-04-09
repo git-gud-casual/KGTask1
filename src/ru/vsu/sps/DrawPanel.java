@@ -1,11 +1,10 @@
 package ru.vsu.sps;
 
 import ru.vsu.sps.object.*;
+import ru.vsu.sps.object.Box;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
@@ -19,12 +18,17 @@ public class DrawPanel extends JPanel {
     public DrawPanel() {
         paintedObjects = new ArrayList<>();
         paintedObjects.add(new Background());
-        paintedObjects.add(new AssemblyLine(-0.1, 0.5));
+        paintedObjects.add(new AssemblyLine());
 
         double step = 1. / (LAMP_COUNT + 1);
         for (int i = 0; i < LAMP_COUNT; i++) {
             paintedObjects.add(new Lamp(step * (i + 1), i == LAMP_COUNT - 2 ? 1 : -1));
         }
+        paintedObjects.add(new Box());
+        for (int i = 0; i < 4; i++) {
+            paintedObjects.add(new Bottle(ControlPanel.DISTANCE_FROM_LEFT_COEFF / 4 * i));
+        }
+        paintedObjects.add(new ControlPanel());
 
         this.addComponentListener(new ComponentAdapter() {
             @Override
@@ -37,16 +41,13 @@ public class DrawPanel extends JPanel {
             }
         });
 
-        Timer timer = new Timer(1000 / FPS, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (PaintedObject obj : paintedObjects) {
-                    if (obj instanceof AnimatedObject animatedObject) {
-                        animatedObject.next(FPS);
-                    }
+        Timer timer = new Timer(1000 / FPS, e -> {
+            for (PaintedObject obj : paintedObjects) {
+                if (obj instanceof AnimatedObject animatedObject) {
+                    animatedObject.next(FPS);
                 }
-                repaint();
             }
+            repaint();
         });
         timer.start();
     }
